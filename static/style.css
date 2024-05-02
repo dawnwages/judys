@@ -1,0 +1,186 @@
+:root{
+    background: -webkit-linear-gradient(rgb(211, 235, 230), rgb(211, 235, 230), rgb(122, 179, 167));
+    background: linear-gradient(rgb(211, 235, 230), rgb(211, 235, 230), rgb(122, 179, 167)); /* The least supported option. */
+
+}
+
+.logo {
+    width: 20px;
+}
+.logo::after {
+    position: fixed;
+    top: 7%;
+    left: 7%;
+    width: 100%;
+    height: 100%;
+    background-size: 10%;
+    background-image: url('/media/Designer__2_-removebg-preview.png');
+    background-repeat: no-repeat;
+    background-position: absolute;
+    content: '';
+}
+
+main::after {
+    background-size: 120vw auto;
+    background-repeat: no-repeat;
+    background-position-x: 80%;
+    background-image: url('/media/Designer__2_-removebg-preview.png');
+    background-position: absolute;
+    opacity: 10%;
+    content: '';
+    top: -25vh;
+    left: -10px;
+    bottom: 0px;
+    right: -20vw;
+    position: fixed;
+    z-index: -99;
+    filter: grayscale(1);
+}
+
+  /*
+  Alice Light blue: #EBF6FE
+  Azul: #246EB9
+  Oxford blue: #011638
+  Hunyadi yellow: #EDAE49
+  237, 174, 73
+  Tiger's Eye: #BF6900
+  191, 105, 0
+  */
+
+
+/* 
+    Pink: #EFB59F
+    Black: #122128
+    Green: #4A8476
+    Dark Green: #446670
+    Light Green: #7BB3A8
+*/
+
+.font-orange {
+    color: #BF6900;
+}
+
+.bg-orange {
+    background-color: #BF6900;
+}
+.bg-azul-100 {
+    background-color:#5599DD;
+    /*rgba(85, 153, 221)*/
+}
+
+.bg-azul-200 {
+    background-color: #287ACC;
+    /*rgba(40, 122, 204)*/
+}
+
+/*Default blue*/
+.bg-azul-300 {
+    background-color: #446670;
+    /*rgba(36, 110, 185)*/
+}
+
+.bg-azul-400 {
+    background-color: #2266AA;
+    /*rgba(34, 102, 170)*/
+}
+
+.bg-azul-500 {
+    background-color: #1E5C99;
+    /*rgba(30, 92, 153)*/
+}
+
+.bg-azul-600 {
+    background-color: #1B5288;
+    /*rgba(27, 82, 136)*/
+}
+
+.bg-azul-700 {
+    background-color: #184777;
+    /*rgba(24, 71, 119)*/
+}
+
+.bg-azul-800 {
+    background-color: #113355;
+    /*rgba(17, 51, 85)*/
+}
+
+.bg-dark-blue {
+    background-color: #011638;
+}
+
+.bg-dark-gradient{
+    background-image: linear-gradient(40deg, #446670 0%, #4A8476 100%); 
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+}
+
+header {
+    z-index: +99;
+    height: 6.5rem;
+}
+
+header::before {
+    content: '';
+    background-image: linear-gradient(78deg, #d7957b 0%, #EFB59F 100%);
+    top: 6.75rem;
+    left: -10px;
+    bottom: -10px;
+    right: -10px;
+    position: absolute;
+    z-index:-1;
+}
+
+path {
+    border: red solid 1px;
+}
+
+.clip-svg {
+    clip-path: url("#blob1");
+    background-image: linear-gradient(19deg, #d3ebe6 0%, #d7957b 40%, #EFB59F 87%, #446670 100%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+  }
+
+.squiggle-container::after {
+    content: 'San Francisco, CA Metropolitan area';
+    color: #122128;
+    top: -30px;
+    left: -30px;
+    position: relative;
+}
+
+.squiggle-container {
+    margin-top: 20px;
+    padding: 10px;
+    color: rgba(255, 255, 255, .8);
+    border-radius: 5px;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.top-section {
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.second-section {
+    background-size: cover;
+    background-attachment: fixed; 
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: -webkit-linear-gradient(rgba(235, 246, 254, 1), rgba(235, 246, 254, 0.8));
+    background: linear-gradient(rgba(235, 246, 254, 1), rgba(235, 246, 254, 0.8)); /* The least supported option. */
+}
+
+.third-section {
+    background-size: cover;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    background: #C33764;  /* fallback colour. Make sure this is just one solid colour. */
+    background: -webkit-linear-gradient(64deg, rgba(247, 206, 190, 0.8), rgba(247, 206, 190, 0.8), rgb(215, 149, 123, .8)), url("/media/rebekah-vos-GoabH6sEXek-unsplash.jpg");
+    background: linear-gradient(64deg, rgba(247, 206, 190, 0.8), rgba(247, 206, 190, 0.8), rgb(215, 149, 123, .8)), url("/media/rebekah-vos-GoabH6sEXek-unsplash.jpg"); /* The least supported option. */
+}
+
