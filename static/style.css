@@ -56,6 +56,13 @@
     Light Green: #7BB3A8
 */
 
+.homemade-apple-regular {
+    font-family: "Homemade Apple", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+
 .font-orange {
     color: #BF6900;
 }
@@ -148,7 +155,7 @@ path {
 .squiggle-container::after {
     content: 'San Francisco, CA Metropolitan area';
     color: #122128;
-    top: -30px;
+    top: -5px;
     left: -30px;
     position: relative;
 }

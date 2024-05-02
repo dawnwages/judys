@@ -8,6 +8,9 @@
     <title>Judy's Daughter</title>
     <link rel="stylesheet" href="static/style.css">
     <script src="static/script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
     <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
@@ -20,7 +23,7 @@
                 <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <a href="" class="flex items-center">
                         <div class="logo"></div>
-                        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Birthwork is heart work.</span>
+                        <span class="self-center text-xl whitespace-nowrap dark:text-white homemade-apple-regular">Birthwork is heart work.</span>
                     </a>
                     <div class="flex items-center lg:order-2">
                         <a href="#" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm  lg:px-5 md:px-2 px-0 lg:py-2.5 md:py-2 xs:py-2 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a>
@@ -61,8 +64,8 @@
     <main class="container mx-auto px-4">
         <div>
             <section class="dark:bg-gray-900 top-section p-4">
-                <div class="grid grid-flow-row-dens lg:col-span-3 grid-cols-4">
-                    <div class="lg:col-span-1 col-span-2 squiggle-container">
+                <div class="grid grid-flow-row-dens lg:grid-cols-3 grid-cols-1">
+                    <div class="lg:col-span-1 col-span-1 squiggle-container">
                         <div class="squiggle-border">
                             <img src="/media/IMG_8921_-_Copy-removebg-preview.png" alt="Lyndsay" class="clip-svg object-cover w-full h-full" />
                             <svg viewBox="0 0 478.9 448.2" width="0" height="0">
@@ -74,7 +77,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="col-span-2">
+                    <div class="lg:col-span-2 col-span-1">
                         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
                             <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Full-spectrum services for your family plan.</h1>
                             <p class="mb-8 text-lg font-normal text-gray-800 lg:text-xl sm:px-0 lg:px-0 dark:text-gray-400">Here at Judy's Daughter we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
@@ -143,8 +146,10 @@
             <!-- about me -->
             <section class=" dark:bg-gray-900 third-section p-4">
                 <div class="lg:px-48 px-4 pt-12 text-center">
-                    <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">About</h1>
-                    <p class="mb-8 text-lg font-normal text-gray-900 lg:text-xl sm:px-0 lg:px-0 dark:text-gray-900">Judy's Daughter was founded with love and care. We are relentless in our commitment to the care of my clients. Here at Judy's Daughter we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth. </p>
+                    <!-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">About</h1> -->
+                    <span class="self-center text-4xl whitespace-nowrap text-gray-900 md:text-5xl lg:text-6xl dark:text-white homemade-apple-regular">Welcome,</span>
+                    <p class="mb-8 text-lg font-normal text-gray-900 lg:text-xl sm:px-0 lg:px-0 dark:text-gray-900"><b>Judy's Daughter</b> was founded with love and care in 2020. We are relentless in our commitment to the care of my clients. Here at Judy's Daughter we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth. </p>
+                    <span class="self-center text-2xl whitespace-nowrap text-gray-900 homemade-apple-regular">- Lindsay Cromwell.</span>
                 </div>
             </section>
         </div>
@@ -293,10 +298,10 @@
         </div>
         <div>
             <!-- our process -->
-            <section class="dark:bg-gray-900 third-section px-48 pb-12">
-                <div class="py-12 px-48">
-                    <ol class="flex items-center w-full">
-                        <li class="pl-2 flex w-1/4 items-center text-blue-600 dark:text-blue-500 after:content-[''] after:w-full after:h-1 after:border-b after:border-blue-100 after:border-4 after:inline-block dark:after:border-blue-800">
+            <section class="dark:bg-gray-900 third-section lg:px-48 px-12 pb-12">
+                <div class="py-12 lg:px-48 px-0">
+                    <ol class="lg:flex grid grid-cols-1 items-center w-full">
+                        <li class="pl-2 lg:flex lg:w-1/4 flex pb-2 items-center text-blue-600 dark:text-blue-500 after:content-[''] after:w-full after:h-1 after:border-b after:border-blue-100 after:border-4 after:inline-block dark:after:border-blue-800">
                             <span class="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-blue-800 shrink-0">
                                 <svg class="w-3.5 h-3.5 text-blue-600 lg:w-4 lg:h-4 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
@@ -304,7 +309,7 @@
                             </span>
                             <h2 class="pl-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">Step 1</h2>
                         </li>
-                        <li class="pl-2 flex w-1/4 items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700">
+                        <li class="pl-2 lg:flex lg:w-1/4 flex pb-2 items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700">
                             <span class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
                                 <svg class="w-4 h-4 text-gray-500 lg:w-5 lg:h-5 dark:text-gray-100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
                                     <path d="M18 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM6.5 3a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3.014 13.021l.157-.625A3.427 3.427 0 0 1 6.5 9.571a3.426 3.426 0 0 1 3.322 2.805l.159.622-6.967.023ZM16 12h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Z"/>
@@ -312,7 +317,7 @@
                             </span>
                             <h2 class="pl-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">Step 2</h2>
                         </li>
-                        <li class="pl-2 flex w-1/4 items-center">
+                        <li class="pl-2 lg:flex lg:w-1/4 flex pb-2 items-center">
                             <span class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
                                 <svg class="w-4 h-4 text-gray-500 lg:w-5 lg:h-5 dark:text-gray-100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                     <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2ZM7 2h4v3H7V2Zm5.7 8.289-3.975 3.857a1 1 0 0 1-1.393 0L5.3 12.182a1.002 1.002 0 1 1 1.4-1.436l1.328 1.289 3.28-3.181a1 1 0 1 1 1.392 1.435Z"/>
@@ -320,7 +325,7 @@
                             </span>
                             <h2 class="pl-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">Step 3</h2>
                         </li>
-                        <li class="pl-2 flex w-1/4 items-center">
+                        <li class="pl-2 lg:flex lg:w-1/4 flex pb-2 items-center">
                             <span class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
                                 <svg class="w-4 h-4 text-gray-500 lg:w-5 lg:h-5 dark:text-gray-100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                     <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2ZM7 2h4v3H7V2Zm5.7 8.289-3.975 3.857a1 1 0 0 1-1.393 0L5.3 12.182a1.002 1.002 0 1 1 1.4-1.436l1.328 1.289 3.28-3.181a1 1 0 1 1 1.392 1.435Z"/>
@@ -330,11 +335,11 @@
                         </li>
                     </ol>    
                 </div>
-                <div class="flex mb-4 px-48">
-                    <div class="w-1/4 bg-gray-500 h-48"></div>
-                    <div class="w-1/4 bg-gray-400 h-48"></div>
-                    <div class="w-1/4 bg-gray-500 h-48"></div>
-                    <div class="w-1/4 bg-gray-400 h-48"></div>
+                <div class="lg:flex grid grid-cols-1 mb-4 lg:px-48 px-0">
+                    <div class="lg:w-1/4  bg-gray-500 h-48"></div>
+                    <div class="lg:w-1/4  bg-gray-400 h-48"></div>
+                    <div class="lg:w-1/4  bg-gray-500 h-48"></div>
+                    <div class="lg:w-1/4  bg-gray-400 h-48"></div>
                   </div>
             </section>
         </div>
