@@ -1,7 +1,6 @@
 :root{
     background: -webkit-linear-gradient(rgb(211, 235, 230), rgb(211, 235, 230), rgb(122, 179, 167));
     background: linear-gradient(rgb(211, 235, 230), rgb(211, 235, 230), rgb(122, 179, 167)); /* The least supported option. */
-
 }
 
 .logo {
