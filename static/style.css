@@ -23,6 +23,12 @@ body{
     }
  }
 
+ @media (min-width: 640px) {
+    .mobile {
+        display: none !important;
+    }
+ }
+
 /* .logo::after {
     position: fixed;
     top: 7%;
@@ -107,7 +113,7 @@ body{
 }
 
 .bg-azul-400 {
-    background-color: #2266AA;
+    background-color: #355058;
     /*rgba(34, 102, 170)*/
 }
 
@@ -133,6 +139,10 @@ body{
 
 .bg-dark-blue {
     background-color: #011638;
+}
+
+.border-dark-blue{
+    border-color: #011638;
 }
 
 .bg-dark-gradient{
