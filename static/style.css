@@ -173,7 +173,7 @@ path {
   }
 
 .squiggle-container::after {
-    content: 'San Francisco, CA Metropolitan area';
+    content: 'San Francisco, California Metro area';
     color: #122128;
     top: -5px;
     left: -30px;
