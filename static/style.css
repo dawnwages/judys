@@ -12,6 +12,17 @@ body{
 .logo {
     width: 20px;
 }
+
+@media (max-width: 640px) {
+    .gallery-section {
+        overflow-x: scroll;
+    }
+    
+    .gallery-subsection {
+        width: 1000px !important;
+    }
+ }
+
 /* .logo::after {
     position: fixed;
     top: 7%;
@@ -68,7 +79,8 @@ body{
   }
   
 .red {
-    color: #bf0049 !important;
+    color: #EFB59F !important;
+    text-decoration: underline;
 }
 
 .font-orange {
