@@ -117,6 +117,10 @@ body{
     /*rgba(34, 102, 170)*/
 }
 
+.text-azul-400{
+    color: #355058;
+}
+
 .bg-azul-500 {
     background-color: #1E5C99;
     /*rgba(30, 92, 153)*/
