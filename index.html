@@ -721,7 +721,7 @@
                 <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
                     <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Contact</h2>
                     <p class="mb-8 lg:mb-16 font-light text-center text-gray-900 dark:text-gray-900 sm:text-xl">Don't hesitate to reach out. Feel free to <a href="/book"><b><u>schedule your first, free appointment</u></b></a> with me or <b>inquire with the form below.</b></p>                    
-                    <form name="contact" method="post" onSubmit={handleSubmit} class="space-y-8" data-netlify="true">
+                    <form name="contact" method="POST" class="space-y-8" netlify>
                         <div class="grid grid-cols-2">
                                 <label for="referral" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Were you referred?</label>
                                 <input type="checkbox" id="referral" name="referral" value="yes"> Yes</input>
@@ -778,11 +778,11 @@
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: new URLSearchParams(formData).toString()
         })
-          .then(() => alert("Thank you for your submission"))
+          .then(() => console.log("Form successfully submitted"))
           .catch(error => alert(error));
       };
 
-document.querySelector("form").addEventListener("submit", handleSubmit);
+      document.querySelector("form").addEventListener("submit", handleSubmit);
     </script>
 
     <footer class="bg-gray-200 py-4">
