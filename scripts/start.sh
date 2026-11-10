@@ -4,7 +4,7 @@ set -euo pipefail
 
 python manage.py migrate --noinput
 python manage.py seed_site                      # loads content the first time only
-python manage.py seed_site --site-host "${RENDER_EXTERNAL_HOSTNAME:-}"
+python manage.py seed_site --site-host "${SITE_HOSTNAME:-${RENDER_EXTERNAL_HOSTNAME:-}}"
 
 # First deploy: create the admin login from DJANGO_SUPERUSER_* if it doesn't exist yet.
 if [ -n "${DJANGO_SUPERUSER_PASSWORD:-}" ]; then

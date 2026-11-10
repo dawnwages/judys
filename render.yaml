@@ -1,5 +1,6 @@
-# Render Blueprint for the Judy's Daughter STAGING site.
-# In Render: New → Blueprint → pick dawnwages/judys, branch "wagtail".
+# Render Blueprint for the Judy's Daughter website (production).
+# This service started as staging and was promoted to production. Keep its
+# name as is: renaming it here would make Render create a new service.
 # Render asks for the values marked "sync: false" when you create it.
 services:
   - type: web
@@ -7,7 +8,7 @@ services:
     runtime: python
     region: oregon              # closest to California; can't be changed later
     plan: starter               # paid plan: needed for the photo disk
-    branch: wagtail
+    branch: main
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
     startCommand: bash scripts/start.sh
     healthCheckPath: /
@@ -28,8 +29,15 @@ services:
           property: connectionString
       - key: MEDIA_ROOT
         value: /var/data/media
-      - key: STAGING
-        value: "true"
+      - key: STAGING            # "true" shows the staging banner and hides the site from search engines
+        value: "false"
+      # The real web address, used for full links in feeds, previews and emails.
+      - key: SITE_HOSTNAME
+        value: judysdaughter.support
+      - key: ALLOWED_HOSTS
+        value: judysdaughter.support,www.judysdaughter.support
+      - key: WAGTAILADMIN_BASE_URL
+        value: https://judysdaughter.support
       # Where contact-form messages go (kept out of this public repo).
       - key: CONTACT_EMAIL
         sync: false
