@@ -6,7 +6,12 @@ DEBUG = False
 SECRET_KEY = os.environ["SECRET_KEY"]
 # Render provides the service's own address in RENDER_EXTERNAL_HOSTNAME.
 RENDER_HOST = os.environ.get("RENDER_EXTERNAL_HOSTNAME", "")
-ALLOWED_HOSTS = [h for h in os.environ.get("ALLOWED_HOSTS", "").split(",") + [RENDER_HOST] if h]
+# Forgiving about how the list is typed: spaces, "https://" and "/" are ignored.
+ALLOWED_HOSTS = [
+    h.strip().removeprefix("https://").removeprefix("http://").rstrip("/")
+    for h in os.environ.get("ALLOWED_HOSTS", "").split(",") + [RENDER_HOST]
+]
+ALLOWED_HOSTS = [h for h in ALLOWED_HOSTS if h]
 CSRF_TRUSTED_ORIGINS = [f"https://{h}" for h in ALLOWED_HOSTS]
 WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL") or (
     f"https://{RENDER_HOST}" if RENDER_HOST else "https://judysdaughter.support"

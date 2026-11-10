@@ -11,7 +11,7 @@ services:
     branch: main
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
     startCommand: bash scripts/start.sh
-    healthCheckPath: /
+    healthCheckPath: /healthz   # answered before host checks (see core/middleware.py)
     disk:
       name: judys-media
       mountPath: /var/data      # Lyndsay's uploaded photos survive deploys here
