@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags %}
+{% block content %}
+{% include "includes/page_header.html" with eyebrow=page.eyebrow title=page.title intro=page.intro %}
+<section class="section pt-0">
+  <div class="wrap">
+    {% regroup page.collaborators.all by group as groups %}
+    {% for g in groups %}
+      {% if g.grouper %}<h2 class="collab-group">{{ g.grouper }}</h2>{% endif %}
+      <ul class="collab-grid" role="list">
+        {% for c in g.list %}
+          <li class="collab">
+            <a class="collab-link" href="{{ c.url }}" target="_blank" rel="noopener">
+              <div class="collab-photo">
+                {% if c.photo %}{% image c.photo fill-480x480 format-webp loading="lazy" alt="" %}{% else %}<span aria-hidden="true">{{ c.initials }}</span>{% endif %}
+              </div>
+              {% if c.label %}<p class="eyebrow small">{{ c.label }}</p>{% endif %}
+              {% if g.grouper %}<h3 class="collab-name">{{ c.business }}</h3>{% else %}<h2 class="collab-name">{{ c.business }}</h2>{% endif %}
+              {% if c.person or c.location %}<p class="collab-meta">{{ c.person }}{% if c.person and c.location %} · {% endif %}{{ c.location }}</p>{% endif %}
+              {% if c.description %}<p class="collab-desc">{{ c.description }}</p>{% endif %}
+              <span class="link-arrow">Visit website<span class="sr-only"> (opens in a new tab)</span></span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+    {% if page.closing %}<p class="note-box collab-closing">{{ page.closing }}</p>{% endif %}
+  </div>
+</section>
+{% endblock %}

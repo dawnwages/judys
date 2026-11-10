@@ -47,6 +47,7 @@ to log in. You can also create a full admin for yourself with
 | Change the contact form questions or get messages by email | **Pages → Book a free consult → Edit**. Put her email in "To address". |
 | Change email, phone, logo, socials, booking link, Medi-Cal note | **Settings → Business details**. |
 | Share her booking calendar with a client | Send them **/book/** (e.g. https://judysdaughter.support/book/). The page isn't linked anywhere on the site and is hidden from search engines. To change the calendar, edit **Pages → Schedule an appointment** and paste a new Google Calendar, Calendly, Acuity or Cal.com link. |
+| Add, edit or reorder collaborators | **Pages → Collaborators → Edit**. Each has a business name, person, website, optional photo or logo (initials show without one), location, short description, tag and group heading. |
 | Add another page (FAQ, resources…) | **Pages → Home → Add child page → Standard page**. Tick "Show in menus" under the Promote tab to add it to the nav. |
 
 ### Editing the pricing page

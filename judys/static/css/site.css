@@ -157,19 +157,24 @@ p { margin: 0 0 1em; }
 .values li { padding: .45em 1em; border-radius: 999px; background: var(--white); border: 1px solid var(--line); font-size: .88rem; color: var(--forest); font-weight: 500; }
 .medi-cal { display: inline-flex; align-items: center; gap: .6rem; font-size: .92rem; color: var(--forest); font-weight: 600; margin: 0; }
 .medi-cal .dot { width: 10px; height: 10px; border-radius: 50%; background: #f2a516; box-shadow: 0 0 0 4px rgb(242 165 22 / 22%); }
-.hero-art { position: relative; display: grid; place-items: end center; min-height: 420px; }
+.hero-art { position: relative; display: grid; place-items: center; padding: 0 1.5rem 1.5rem 0; width: min(100%, 464px); justify-self: center; }
+/* Peach arch behind the photo, offset down and right */
 .arch {
-  position: absolute; inset: 6% 6% 0; border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
+  position: absolute; inset: 1.5rem 0 0 1.5rem; border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
   background: radial-gradient(circle at 50% 30%, var(--blush-soft), var(--blush) 75%);
 }
 .arch::after { /* small sun from the logo */
-  content: ""; position: absolute; width: 22%; aspect-ratio: 1; right: -4%; top: 12%;
-  border-radius: 50%; background: var(--sage); opacity: .7;
+  content: ""; position: absolute; width: 22%; aspect-ratio: 1; right: -6%; top: 10%;
+  border-radius: 50%; background: var(--sage); opacity: .8;
 }
-.hero-photo { position: relative; width: 88%; max-height: 640px; object-fit: contain; object-position: bottom; }
+/* The photo fills an arch shape, so any portrait works here */
+.hero-photo {
+  position: relative; width: 100%; max-width: 440px; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 25%;
+  border-radius: 999px 999px var(--radius-lg) var(--radius-lg); box-shadow: 0 18px 40px rgb(31 42 39 / 14%);
+}
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; }
-  .hero-art { min-height: 0; max-width: 420px; margin: 0 auto; width: 100%; }
+  .hero-art { max-width: 400px; margin: 0 auto; }
 }
 
 /* ---------- About ---------- */
@@ -404,6 +409,27 @@ p { margin: 0 0 1em; }
 .field .city-suggestions:not([hidden]) { display: block; }
 .field .city-suggestions[hidden] { display: none; }
 .city-credit { padding: .35rem .75rem .15rem; font-size: .72rem; color: var(--muted); text-align: right; }
+
+/* ---------- Collaborators ---------- */
+.collab-group { font-size: 1.6rem; text-align: center; margin: 3rem 0 1.5rem; }
+.collab-grid { list-style: none; padding: 0; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 320px)); justify-content: center; gap: 1.5rem; }
+.collab-link {
+  display: flex; flex-direction: column; height: 100%; text-decoration: none; color: inherit;
+  background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 1.75rem 1.75rem 2rem;
+  transition: transform .2s, box-shadow .2s;
+}
+.collab-link:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgb(31 42 39 / 5%), 0 16px 36px rgb(31 42 39 / 10%); color: inherit; }
+.collab-photo {
+  width: 104px; height: 104px; border-radius: 50%; overflow: hidden; margin-bottom: 1.25rem;
+  background: radial-gradient(circle at 30% 30%, var(--blush-soft), var(--blush)); display: grid; place-items: center;
+}
+.collab-photo img { width: 100%; height: 100%; object-fit: cover; }
+.collab-photo span { font: 500 2rem/1 var(--serif); color: var(--forest-deep); letter-spacing: .02em; }
+.collab-name { font-size: 1.45rem; margin-bottom: .3rem; }
+.collab-meta { color: var(--muted); font-size: .92rem; margin-bottom: .75rem; }
+.collab-desc { font-size: .98rem; color: #36413d; flex: 1; }
+.collab-link .link-arrow { margin-top: auto; color: var(--clay); }
+.collab-closing { max-width: 720px; margin: 3rem auto 0; text-align: center; }
 
 /* ---------- CTA band ---------- */
 .cta { background: var(--forest); color: var(--cream); text-align: center; position: relative; overflow: hidden; }

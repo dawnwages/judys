@@ -18,7 +18,14 @@ from wagtail.models import Collection, GroupCollectionPermission, GroupPagePermi
 from blog.models import BlogIndexPage, BlogPage
 from contact.models import ContactFormField, ContactPage
 from core.models import SiteDetails
-from home.models import CalendarPage, HomeGalleryImage, HomePage, PricingPage
+from home.models import (
+    CalendarPage,
+    Collaborator,
+    CollaboratorsPage,
+    HomeGalleryImage,
+    HomePage,
+    PricingPage,
+)
 from testimonials.models import Testimonial, TestimonialsPage
 
 IMAGES = Path(settings.BASE_DIR) / "seed" / "images"
@@ -155,6 +162,26 @@ CONTACT_FIELDS = [
     ("email", "Your email", "email", True, "name@yourname.com", ""),
     ("subject", "Subject", "singleline", True, "Let us know how we can help you", ""),
     ("message", "Your message", "multiline", False, "Leave a comment...", ""),
+]
+
+HEADSHOT_TITLE = "Lyndsay Cromwell smiling in a colorful headwrap"
+
+# Collaborators (business, person, location, description, website).
+# Descriptions only use facts from each collaborator's own website.
+COLLABORATORS_INTRO = (
+    "Birthwork takes a village. These are some of the practitioners I'm proud to "
+    "work alongside."
+)
+COLLABORATORS = [
+    ("Together Birth & Body", "Caitlin Breen", "Redwood City, CA",
+     "Prenatal yoga, birth prep workshops for couples, bodywork and doula support.",
+     "https://www.togetherbirthandbody.com/"),
+    ("Coastal Rose Doula", "Kristin Guess", "Half Moon Bay, CA",
+     "Birth doula support for families on the coast, in San Francisco and on the Peninsula.",
+     "https://www.kristinguess.com/"),
+    ("SageFemme Wellness", "", "",
+     "Prenatal massage, plus birth and postpartum doula services.",
+     "https://www.sagefemmewell.com/"),
 ]
 
 # Google appointment schedule from the original site's /book page.
@@ -339,6 +366,16 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("--reset", action="store_true", help="Delete seeded pages first")
         parser.add_argument(
+            "--collaborators",
+            action="store_true",
+            help="Only add the Collaborators page if it's missing",
+        )
+        parser.add_argument(
+            "--headshot",
+            action="store_true",
+            help="Only switch the home page photo to the current headshot",
+        )
+        parser.add_argument(
             "--site-host",
             help="Only set the site's web address (used for full links in feeds and previews)",
         )
@@ -374,7 +411,17 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, reset=False, update_pricing=False, demo_posts=False,
-               calendar=False, contact_form=False, site_host=None, **opts):
+               calendar=False, contact_form=False, site_host=None, collaborators=False,
+               headshot=False, **opts):
+        if collaborators:
+            self.create_collaborators_page(HomePage.objects.get())
+            return
+        if headshot:
+            home = HomePage.objects.get()
+            home.hero_image = self.img("lyndsay-headshot.jpg", HEADSHOT_TITLE)
+            home.save_revision().publish()
+            self.stdout.write(self.style.SUCCESS("Home page photo updated."))
+            return
         if site_host is not None:
             if site_host:
                 Site.objects.filter(is_default_site=True).update(hostname=site_host, port=443)
@@ -418,7 +465,7 @@ class Command(BaseCommand):
             p.delete()
 
         logo = self.img("logo.png", "Judy's Daughter logo")
-        portrait = self.img("lyndsay-portrait.png", "Lyndsay with a cup of tea")
+        portrait = self.img("lyndsay-headshot.jpg", HEADSHOT_TITLE)
         with_baby = self.img("lyndsay-with-baby.jpg", "Lyndsay holding a smiling baby")
         gallery = [
             self.img("home-visit-1.jpg", "Lyndsay supporting a client at home"),
@@ -574,6 +621,7 @@ class Command(BaseCommand):
 
         self.create_demo_posts(blog)
         self.create_calendar_page(home)
+        self.create_collaborators_page(home)
 
         contact = ContactPage(
             title="Book a free consult",
@@ -607,6 +655,27 @@ class Command(BaseCommand):
                 choices="Yes\nNo" if ftype == "radio" else "",
             )
         contact.save_revision().publish()
+
+    def create_collaborators_page(self, home):
+        if CollaboratorsPage.objects.exists():
+            self.stdout.write("Collaborators page already exists.")
+            return
+        page = CollaboratorsPage(
+            title="Collaborators", slug="collaborators", show_in_menus=True,
+            intro=COLLABORATORS_INTRO,
+        )
+        home.add_child(instance=page)
+        for i, (business, person, location, description, url) in enumerate(COLLABORATORS):
+            Collaborator.objects.create(
+                page=page, sort_order=i, business=business, person=person,
+                location=location, description=description, url=url,
+            )
+        page.save_revision().publish()
+        # Put it in the menu after Testimonials.
+        testimonials = home.get_children().filter(slug="testimonials").first()
+        if testimonials:
+            page.move(testimonials, pos="right")
+        self.stdout.write(self.style.SUCCESS(f"Added collaborators page at {page.url}"))
 
     def create_calendar_page(self, home):
         """The booking calendar from the old /book page, shared by link only."""

@@ -112,6 +112,7 @@ class HomePage(Page):
         "testimonials.TestimonialsPage",
         "contact.ContactPage",
         "home.CalendarPage",
+        "home.CollaboratorsPage",
     ]
 
     def get_context(self, request, *args, **kwargs):
@@ -325,3 +326,68 @@ class CalendarPage(Page):
 
     def get_sitemap_urls(self, request=None):
         return []
+
+
+class CollaboratorsPage(Page):
+    """Practitioners Lyndsay works alongside, each linking to their own site."""
+
+    eyebrow = models.CharField(max_length=40, blank=True, default="Community")
+    intro = models.TextField(blank=True, max_length=400)
+    closing = models.TextField(
+        blank=True, max_length=300, help_text="Optional note at the bottom of the page"
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("eyebrow"),
+        FieldPanel("intro"),
+        InlinePanel("collaborators", label="Collaborator", heading="Collaborators"),
+        FieldPanel("closing"),
+    ]
+    parent_page_types = ["home.HomePage"]
+    subpage_types = []
+    max_count = 1
+
+    class Meta:
+        verbose_name = "Collaborators page"
+
+
+class Collaborator(Orderable):
+    page = ParentalKey(CollaboratorsPage, on_delete=models.CASCADE, related_name="collaborators")
+    business = models.CharField(max_length=80, help_text="e.g. Coastal Rose Doula")
+    person = models.CharField(max_length=80, blank=True, help_text="e.g. Kristin Guess")
+    group = models.CharField(
+        max_length=40,
+        blank=True,
+        help_text="Optional heading to group people under, e.g. 'Birth Doulas'. "
+        "Collaborators in a row with the same group share one heading.",
+    )
+    label = models.CharField(
+        max_length=40, blank=True, help_text="Optional small tag, e.g. 'Prenatal education'"
+    )
+    location = models.CharField(max_length=60, blank=True, help_text="e.g. Half Moon Bay, CA")
+    description = models.TextField(blank=True, max_length=240, help_text="One or two sentences")
+    photo = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="Headshot or logo. Without one, their initials are shown.",
+    )
+    url = models.URLField("Website")
+
+    panels = [
+        FieldPanel("business"),
+        FieldPanel("person"),
+        FieldPanel("url"),
+        FieldPanel("photo"),
+        FieldPanel("location"),
+        FieldPanel("description"),
+        FieldPanel("label"),
+        FieldPanel("group"),
+    ]
+
+    @property
+    def initials(self):
+        words = [w for w in (self.person or self.business).replace("&", " ").split() if w[0].isalpha()]
+        return "".join(w[0] for w in words[:2]).upper()
