@@ -113,6 +113,7 @@ class HomePage(Page):
         "contact.ContactPage",
         "home.CalendarPage",
         "home.CollaboratorsPage",
+        "testimonials.TestimonialRequestPage",
     ]
 
     def get_context(self, request, *args, **kwargs):
@@ -121,7 +122,7 @@ class HomePage(Page):
         from testimonials.models import Testimonial, TestimonialsPage
 
         context = super().get_context(request, *args, **kwargs)
-        context["testimonials"] = Testimonial.objects.filter(featured=True)[:3]
+        context["testimonials"] = Testimonial.objects.shown().filter(featured=True)[:3]
         context["posts"] = (
             BlogPage.objects.live().public().descendant_of(self).order_by("-date")[:3]
         )

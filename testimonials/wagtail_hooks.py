@@ -10,8 +10,8 @@ class TestimonialViewSet(SnippetViewSet):
     menu_label = "Testimonials"
     menu_order = 200
     add_to_admin_menu = True
-    list_display = ["name", "headline", "featured", "sort_order"]
-    list_filter = ["featured"]
+    list_display = ["name", "headline", "approved", "featured", "created"]
+    list_filter = ["approved", "featured", "from_share_link"]
     search_fields = ["name", "quote"]
 
 

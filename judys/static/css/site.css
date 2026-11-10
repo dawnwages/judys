@@ -431,6 +431,14 @@ p { margin: 0 0 1em; }
 .collab-link .link-arrow { margin-top: auto; color: var(--clay); }
 .collab-closing { max-width: 720px; margin: 3rem auto 0; text-align: center; }
 
+/* ---------- Share-a-testimonial form ---------- */
+.share-form { max-width: 680px; margin: 0 auto; grid-template-columns: 1fr; }
+.share-form .permission .check-option { align-items: flex-start; font-size: .97rem; }
+.share-form .permission input { margin-top: .2rem; flex: none; width: 1.2rem; height: 1.2rem; accent-color: var(--clay); }
+.share-form .permission .check-option > span { color: var(--ink); }
+.share-form .req { color: var(--clay); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
 /* ---------- CTA band ---------- */
 .cta { background: var(--forest); color: var(--cream); text-align: center; position: relative; overflow: hidden; }
 .cta::before { content: ""; position: absolute; width: 520px; aspect-ratio: 1; border-radius: 50%; background: var(--forest-deep); top: -260px; right: -120px; }

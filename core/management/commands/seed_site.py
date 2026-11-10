@@ -26,7 +26,7 @@ from home.models import (
     HomePage,
     PricingPage,
 )
-from testimonials.models import Testimonial, TestimonialsPage
+from testimonials.models import Testimonial, TestimonialRequestPage, TestimonialsPage
 
 IMAGES = Path(settings.BASE_DIR) / "seed" / "images"
 Image = get_image_model()
@@ -366,6 +366,11 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("--reset", action="store_true", help="Delete seeded pages first")
         parser.add_argument(
+            "--testimonial-form",
+            action="store_true",
+            help="Only add the link-only testimonial form page if it's missing",
+        )
+        parser.add_argument(
             "--collaborators",
             action="store_true",
             help="Only add the Collaborators page if it's missing",
@@ -412,7 +417,10 @@ class Command(BaseCommand):
     @transaction.atomic
     def handle(self, *args, reset=False, update_pricing=False, demo_posts=False,
                calendar=False, contact_form=False, site_host=None, collaborators=False,
-               headshot=False, **opts):
+               headshot=False, testimonial_form=False, **opts):
+        if testimonial_form:
+            self.create_testimonial_form_page(HomePage.objects.get())
+            return
         if collaborators:
             self.create_collaborators_page(HomePage.objects.get())
             return
@@ -622,6 +630,7 @@ class Command(BaseCommand):
         self.create_demo_posts(blog)
         self.create_calendar_page(home)
         self.create_collaborators_page(home)
+        self.create_testimonial_form_page(home)
 
         contact = ContactPage(
             title="Book a free consult",
@@ -655,6 +664,18 @@ class Command(BaseCommand):
                 choices="Yes\nNo" if ftype == "radio" else "",
             )
         contact.save_revision().publish()
+
+    def create_testimonial_form_page(self, home):
+        """Link-only form clients use to send a testimonial for approval."""
+        if TestimonialRequestPage.objects.exists():
+            self.stdout.write("Testimonial form page already exists.")
+            return
+        page = TestimonialRequestPage(
+            title="Share your experience", slug="share-your-story", show_in_menus=False,
+        )
+        home.add_child(instance=page)
+        page.save_revision().publish()
+        self.stdout.write(self.style.SUCCESS(f"Added testimonial form at {page.url}"))
 
     def create_collaborators_page(self, home):
         if CollaboratorsPage.objects.exists():
