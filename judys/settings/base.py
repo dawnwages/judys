@@ -73,6 +73,11 @@ DATABASES = {
     )
 }
 
+# Wagtail's search uses Postgres full-text search when the database is Postgres
+# (as on Render), which needs Django's Postgres app.
+if "postgresql" in DATABASES["default"]["ENGINE"]:
+    INSTALLED_APPS.append("django.contrib.postgres")
+
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
