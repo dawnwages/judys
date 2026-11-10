@@ -22,7 +22,7 @@ class HomePage(Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        help_text="A portrait works best. A photo with the background removed looks great here.",
+        help_text="A portrait (taller than it is wide) works best. It's shown in an arch shape.",
     )
     hero_button_text = models.CharField(max_length=60, default="Book a free consult")
     values = StreamField(
