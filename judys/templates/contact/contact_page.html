@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+{% block content %}
+{% with sd=settings.core.SiteDetails %}
+{% include "includes/page_header.html" with eyebrow="Contact" title=page.title %}
+<section class="section pt-0">
+  <div class="wrap contact-grid">
+    <aside class="contact-aside">
+      {% if page.intro %}<div class="prose">{{ page.intro|richtext }}</div>{% endif %}
+      {% if sd.phone or sd.service_area %}<ul class="plain contact-list">
+        {% if sd.phone %}<li><span>Phone</span><a href="tel:{{ sd.phone }}">{{ sd.phone }}</a></li>{% endif %}
+        {% if sd.service_area %}<li><span>Area</span>{{ sd.service_area }}</li>{% endif %}
+      </ul>{% endif %}
+      {% if sd.booking_url %}<a class="btn" href="{{ sd.booking_url }}">Pick a time on my calendar</a>{% endif %}
+    </aside>
+    <form class="form-card" action="{% pageurl page %}" method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        {% if field.is_hidden %}{{ field }}{% else %}
+        <div class="field{% if field.errors %} has-error{% endif %}{% if field.field.widget.input_type == 'checkbox' %} check{% endif %}" data-type="{{ field.field.widget.input_type|default:'textarea' }}" data-name="{{ field.name }}">
+          {% if field.field.widget.input_type == 'checkbox' %}
+            <span class="field-label" id="{{ field.id_for_label }}-label">{{ field.label }}</span>
+            <label class="check-option">{{ field }} {{ field.help_text|default:"Yes" }}</label>
+          {% elif field.field.widget.input_type == 'radio' %}
+            <span class="field-label" id="{{ field.auto_id }}-label">{{ field.label }}{% if field.field.required %} <span aria-hidden="true">*</span>{% endif %}</span>
+            <div class="choice-group" role="radiogroup" aria-labelledby="{{ field.auto_id }}-label">{{ field }}</div>
+          {% else %}
+          <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span aria-hidden="true">*</span>{% endif %}</label>
+          {{ field }}
+          {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+          {% endif %}
+          {% for e in field.errors %}<small class="error">{{ e }}</small>{% endfor %}
+        </div>
+        {% endif %}
+      {% endfor %}
+      <button class="btn" type="submit">Send message</button>
+    </form>
+  </div>
+</section>
+{% endwith %}
+{% if google_maps_key %}
+  <script src="{% static 'js/city-autocomplete.js' %}"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_key|urlencode }}&loading=async&libraries=places&callback=jdPlacesReady"></script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+[project]
+name = "judys-daughter"
+version = "0.1.0"
+description = "Website for Judy's Daughter, full-spectrum doula care (Django + Wagtail)."
+requires-python = ">=3.14"
+dependencies = [
+    "Django==6.1.1",
+    "wagtail==8.0",
+    "dj-database-url==3.1.2",
+    "whitenoise==6.12.0",
+    "gunicorn==26.2.0",
+    "psycopg2-binary==2.9.13",
+]
+
+[tool.uv]
+package = false

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block content %}
+{% include "includes/page_header.html" with eyebrow="From families" title=page.title intro=page.intro %}
+<section class="section pt-0">
+  <div class="wrap">
+    <div class="testimonial-masonry">
+      {% for t in testimonials %}{% include "includes/testimonial_card.html" with t=t %}{% endfor %}
+    </div>
+    {% if contact_page %}<p class="center"><a class="btn" href="{% pageurl contact_page %}">Start your story</a></p>{% endif %}
+  </div>
+</section>
+{% endblock %}

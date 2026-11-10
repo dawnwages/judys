@@ -1,0 +1,10 @@
+{% load wagtailimages_tags %}
+<figure class="testimonial{% if clamp %} clamp{% endif %}">
+  <svg class="quote-mark" viewBox="0 0 40 32" aria-hidden="true"><path d="M0 32V19.2C0 8.5 6.2 1.9 16 0l1.8 4.2C11.6 6 8.6 9.8 8.3 15H16v17H0zm22 0V19.2C22 8.5 28.2 1.9 38 0l1.8 4.2C33.6 6 30.6 9.8 30.3 15H38v17H22z"/></svg>
+  {% if t.headline %}<p class="t-headline">{{ t.headline }}</p>{% endif %}
+  <blockquote><p>{{ t.quote|linebreaksbr }}</p></blockquote>
+  <figcaption>
+    {% if t.photo %}{% image t.photo fill-96x96 format-webp class="t-photo" loading="lazy" %}{% endif %}
+    <span><strong>{{ t.name }}</strong>{% if t.context %}<span class="t-context">{{ t.context }}</span>{% endif %}</span>
+  </figcaption>
+</figure>

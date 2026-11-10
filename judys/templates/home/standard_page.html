@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+{% include "includes/page_header.html" with title=page.title intro=page.intro %}
+{% if page.header_image %}<div class="wrap"><figure class="header-image">{% image page.header_image fill-1600x700 format-webp %}</figure></div>{% endif %}
+<section class="section pt-0"><div class="wrap narrow stream">{% include_block page.body %}</div></section>
+{% endblock %}

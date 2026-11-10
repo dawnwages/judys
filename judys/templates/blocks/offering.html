@@ -1,0 +1,12 @@
+{% load wagtailimages_tags %}
+<article class="offering">
+  {% if value.image %}<div class="offering-img">{% image value.image fill-720x480 format-webp loading="lazy" %}</div>{% endif %}
+  <div class="offering-body">
+    {% if value.eyebrow %}<p class="eyebrow small">{{ value.eyebrow }}</p>{% endif %}
+    <h3>{{ value.title }}</h3>
+    {% if value.summary %}<p>{{ value.summary }}</p>{% endif %}
+    {% if value.includes %}
+      <ul class="checks">{% for item in value.includes %}<li>{{ item }}</li>{% endfor %}</ul>
+    {% endif %}
+  </div>
+</article>

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block content %}
+<section class="page-header thanks">
+  <div class="wrap narrow">
+    <p class="script big">Thank you</p>
+    <h1 class="display">Your message is on its way.</h1>
+    <div class="prose lede">{{ page.thank_you_text|richtext }}</div>
+    <p><a class="btn btn-ghost" href="/">Back to home</a></p>
+  </div>
+</section>
+{% endblock %}

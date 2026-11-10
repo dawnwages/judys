@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block content %}
+{% include "includes/page_header.html" with eyebrow=page.eyebrow title=page.title intro=page.intro %}
+
+{% if section_links %}
+<nav class="jump-nav" aria-label="On this page">
+  <div class="wrap">
+    <ul>{% for anchor, label in section_links %}<li><a href="#{{ anchor }}">{{ label }}</a></li>{% endfor %}</ul>
+  </div>
+</nav>
+{% endif %}
+
+{% for s in sections %}{% with block=s.block v=s.block.value %}
+
+{% if block.block_type == "callout" %}
+<div class="wrap callout-wrap">
+  <aside class="callout callout-{{ v.style }}">
+    <div>
+      {% if v.heading %}<h2 class="callout-heading">{{ v.heading }}</h2>{% endif %}
+      <p>{{ v.text|linebreaksbr }}</p>
+    </div>
+    {% if v.button_text and v.button_url or v.button_text and v.button_page %}
+      <a class="btn {% if v.style == 'forest' %}btn-light{% else %}btn-ghost{% endif %}" href="{% if v.button_url %}{{ v.button_url }}{% else %}{% pageurl v.button_page %}{% endif %}">{{ v.button_text }}</a>
+    {% endif %}
+  </aside>
+</div>
+
+{% else %}
+<section class="section pricing-section bg-{{ s.bg }}" id="{{ s.anchor }}">
+  <div class="wrap">
+    {% if v.heading or v.intro %}
+    <header class="section-head">
+      {% if v.heading %}<h2>{{ v.heading }}</h2>{% endif %}
+      {% if v.intro %}<p class="lede">{{ v.intro }}</p>{% endif %}
+    </header>
+    {% endif %}
+
+    {% if block.block_type == "package_group" %}
+      <div class="pricing-grid count-{{ v.packages|length }}">
+        {% for p in v.packages %}
+          <article class="package{% if p.highlight %} featured{% endif %}">
+            {% if p.badge %}<span class="badge">{{ p.badge }}</span>{% endif %}
+            {% if v.heading %}<h3 class="package-name">{{ p.name }}</h3>{% else %}<h2 class="package-name">{{ p.name }}</h2>{% endif %}
+            <div class="price">{% if p.price_note %}<span class="price-note">{{ p.price_note }}</span>{% endif %}{{ p.price }}</div>
+            {% if p.description %}<div class="package-for">{{ p.description }}</div>{% endif %}
+            <ul class="features">
+              {% for f in p.features %}<li>{{ f.text }}{% if f.detail %}<span>{{ f.detail }}</span>{% endif %}</li>{% endfor %}
+            </ul>
+            {% if p.button_url %}<a class="btn{% if not p.highlight %} btn-ghost{% endif %}" href="{{ p.button_url }}">{{ p.button_text }}</a>
+            {% elif p.button_page %}<a class="btn{% if not p.highlight %} btn-ghost{% endif %}" href="{% pageurl p.button_page %}">{{ p.button_text }}</a>
+            {% elif contact_page %}<a class="btn{% if not p.highlight %} btn-ghost{% endif %}" href="{% pageurl contact_page %}?package={{ p.name|urlencode }}">{{ p.button_text }}</a>{% endif %}
+          </article>
+        {% endfor %}
+      </div>
+
+    {% elif block.block_type == "price_list" %}
+      <ul class="price-list{% if v.columns == 'two' %} two-col{% endif %}">
+        {% for item in v.items %}
+          <li>
+            <div class="pl-row"><span class="pl-name">{{ item.name }}</span><span class="pl-dots" aria-hidden="true"></span><span class="pl-price">{{ item.price }}</span></div>
+            {% if item.note %}<p class="pl-note">{{ item.note }}</p>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
+    {% elif block.block_type == "payment" %}
+      <div class="payment">
+        {% if v.text %}<div class="prose payment-text">{{ v.text|richtext }}</div>{% endif %}
+        {% if v.plans %}
+          {% if v.plans_heading %}<h3 class="center">{{ v.plans_heading }}</h3>{% endif %}
+          <ol class="plan-grid">
+            {% for plan in v.plans %}<li><span class="plan-num">{{ forloop.counter }}</span><strong>{{ plan.name }}</strong><span>{{ plan.terms }}</span></li>{% endfor %}
+          </ol>
+        {% endif %}
+      </div>
+
+    {% elif block.block_type == "text_section" %}
+      <div class="text-section">
+        <div class="prose">{{ v.text|richtext }}</div>
+        {% if v.examples %}
+          {% if v.examples_heading %}<h3 class="eyebrow small">{{ v.examples_heading }}</h3>{% endif %}
+          <ul class="example-tags">{% for e in v.examples %}<li>{{ e }}</li>{% endfor %}</ul>
+        {% endif %}
+        {% if v.closing %}<p class="note-box">{{ v.closing }}</p>{% endif %}
+      </div>
+
+    {% elif block.block_type == "faq" %}
+      <div class="faq">
+        {% for q in v.questions %}
+          <details>
+            <summary>{{ q.question }}</summary>
+            <div class="prose">{{ q.answer|richtext }}</div>
+          </details>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if v.footnote %}<p class="footnote">{{ v.footnote }}</p>{% endif %}
+  </div>
+</section>
+{% endif %}
+{% endwith %}{% endfor %}
+
+{% if page.show_cta and cta_url %}
+<section class="section cta">
+  <div class="wrap cta-inner">
+    <h2>{{ page.cta_heading }}</h2>
+    {% if page.cta_text %}<p class="lede">{{ page.cta_text }}</p>{% endif %}
+    <div class="hero-actions center"><a class="btn btn-light" href="{{ cta_url }}">{{ page.cta_button_text }}</a></div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

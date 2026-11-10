@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block description %}{{ page.search_description|default:page.intro }}{% endblock %}
+{% block og_image %}{% if page.feature_image %}{% image page.feature_image fill-1200x630 as og %}<meta property="og:image" content="{{ og.full_url }}">{% endif %}{% endblock %}
+{% block content %}
+<article>
+  <header class="page-header post-header">
+    <div class="wrap narrow">
+      <p class="eyebrow"><a href="{% pageurl page.get_parent %}">Journal</a></p>
+      <h1 class="display">{{ page.title }}</h1>
+      <p class="post-meta"><time datetime="{{ page.date|date:'Y-m-d' }}">{{ page.date|date:"F j, Y" }}</time> · {{ page.reading_minutes }} min read</p>
+    </div>
+  </header>
+  {% if page.feature_image %}
+    <div class="wrap"><figure class="header-image">{% srcset_image page.feature_image fill-{800x450,1600x800} format-webp sizes="(min-width: 1200px) 1140px, 100vw" %}</figure></div>
+  {% endif %}
+  <div class="wrap narrow stream">
+    <p class="lede">{{ page.intro }}</p>
+    {% include_block page.body %}
+    {% with tags=page.tags.all %}{% if tags %}
+      <ul class="tags">{% for t in tags %}<li><a href="{% pageurl page.get_parent %}?tag={{ t.slug }}">{{ t }}</a></li>{% endfor %}</ul>
+    {% endif %}{% endwith %}
+  </div>
+</article>
+{% if more_posts %}
+<section class="section tinted">
+  <div class="wrap">
+    <header class="section-head"><h2>Keep reading</h2></header>
+    <div class="post-grid two">{% for post in more_posts %}{% include "includes/post_card.html" with post=post %}{% endfor %}</div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

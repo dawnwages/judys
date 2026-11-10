@@ -1,0 +1,5 @@
+{% load wagtailimages_tags %}
+<figure class="body-image{% if value.wide %} wide{% endif %}">
+  {% srcset_image value.image width-{600,1000,1400} format-webp sizes="(min-width: 1000px) 900px, 100vw" loading="lazy" %}
+  {% if value.caption %}<figcaption>{{ value.caption }}</figcaption>{% endif %}
+</figure>

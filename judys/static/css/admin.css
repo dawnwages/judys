@@ -1,0 +1,9 @@
+/* Light brand touch for the editor login and sidebar. */
+:root {
+  --w-color-secondary: #2f5d55;
+  --w-color-secondary-400: #3f7469;
+  --w-color-secondary-600: #24493f;
+  --w-color-secondary-50: #e8f1ee;
+  --w-color-secondary-75: #d3e5df;
+  --w-color-secondary-100: #a9cbc0;
+}

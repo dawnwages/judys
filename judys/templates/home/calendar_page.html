@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block content %}
+{% include "includes/page_header.html" with eyebrow=page.eyebrow title=page.title intro=page.intro %}
+<section class="section pt-0">
+  <div class="wrap">
+    <div class="calendar-card">
+      <iframe src="{{ page.calendar_url }}" title="Booking calendar for {{ settings.core.SiteDetails.business_name }}"
+              height="{{ page.calendar_height }}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <p class="calendar-fallback">Calendar not loading? <a href="{{ page.calendar_url }}" target="_blank" rel="noopener">Open it in a new tab</a>.</p>
+    {% if page.note %}<p class="note-box calendar-note">{{ page.note|linebreaksbr }}</p>{% endif %}
+  </div>
+</section>
+{% endblock %}

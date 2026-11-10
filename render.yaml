@@ -1,0 +1,52 @@
+# Render Blueprint for the Judy's Daughter STAGING site.
+# In Render: New → Blueprint → pick dawnwages/judys, branch "wagtail".
+# Render asks for the values marked "sync: false" when you create it.
+services:
+  - type: web
+    name: judys-daughter-staging
+    runtime: python
+    region: oregon              # closest to California; can't be changed later
+    plan: starter               # paid plan: needed for the photo disk
+    branch: wagtail
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    startCommand: bash scripts/start.sh
+    healthCheckPath: /
+    disk:
+      name: judys-media
+      mountPath: /var/data      # Lyndsay's uploaded photos survive deploys here
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.14.7"
+      - key: DJANGO_SETTINGS_MODULE
+        value: judys.settings.deploy
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: judys-daughter-staging-db
+          property: connectionString
+      - key: MEDIA_ROOT
+        value: /var/data/media
+      - key: STAGING
+        value: "true"
+      # Where contact-form messages go (kept out of this public repo).
+      - key: CONTACT_EMAIL
+        sync: false
+      # Your admin login, created on the first deploy.
+      - key: DJANGO_SUPERUSER_USERNAME
+        sync: false
+      - key: DJANGO_SUPERUSER_EMAIL
+        sync: false
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false
+      # Optional: Google town/city autocomplete on the contact form.
+      - key: GOOGLE_MAPS_BROWSER_KEY
+        sync: false
+      - key: GOOGLE_PLACES_SERVER_KEY
+        sync: false
+
+databases:
+  - name: judys-daughter-staging-db
+    region: oregon
+    plan: basic-256mb

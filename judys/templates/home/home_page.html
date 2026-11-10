@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block body_class %}home{% endblock %}
+{% block og_image %}{% if page.hero_image %}{% image page.hero_image fill-1200x630 as og %}<meta property="og:image" content="{{ og.full_url }}">{% endif %}{% endblock %}
+
+{% block content %}
+{% with sd=settings.core.SiteDetails %}
+
+{# ---------- Hero ---------- #}
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      {% if page.hero_eyebrow %}<p class="eyebrow">{{ page.hero_eyebrow }}</p>{% endif %}
+      <h1 class="display">{{ page.hero_heading }}</h1>
+      {% if page.hero_text %}<p class="lede">{{ page.hero_text }}</p>{% endif %}
+      <div class="hero-actions">
+        <a class="btn" href="{% if sd.booking_url %}{{ sd.booking_url }}{% elif contact_page %}{% pageurl contact_page %}{% else %}#contact{% endif %}">{{ page.hero_button_text }}</a>
+        <a class="btn btn-ghost" href="#offerings">See offerings</a>
+      </div>
+      {% if page.values %}
+        <ul class="values" aria-label="My approach">
+          {% for v in page.values %}<li>{{ v.value }}</li>{% endfor %}
+        </ul>
+      {% endif %}
+      {% if sd.accepts_medi_cal %}
+        <p class="medi-cal"><span class="dot" aria-hidden="true"></span> Now accepting Medi-Cal</p>
+      {% endif %}
+    </div>
+    <div class="hero-art">
+      <div class="arch" aria-hidden="true"></div>
+      {% if page.hero_image %}
+        {% srcset_image page.hero_image width-{480,800,1100} format-webp sizes="(min-width: 900px) 40vw, 80vw" class="hero-photo" fetchpriority="high" %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{# ---------- About ---------- #}
+{% if page.about_body %}
+<section class="section about" id="about">
+  <div class="wrap about-grid">
+    {% if page.about_image %}
+      <figure class="about-photo">
+        {% image page.about_image fill-720x900 format-webp loading="lazy" %}
+      </figure>
+    {% endif %}
+    <div class="about-copy">
+      <p class="eyebrow">About</p>
+      <h2>{{ page.about_heading }}</h2>
+      <div class="prose">{{ page.about_body|richtext }}</div>
+      {% if page.about_signature %}<p class="signature">{{ page.about_signature }}</p>{% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# ---------- Offerings ---------- #}
+{% if page.offerings %}
+<section class="section offerings tinted" id="offerings">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow">How I can help</p>
+      <h2>{{ page.offerings_heading }}</h2>
+      {% if page.offerings_intro %}<p class="lede">{{ page.offerings_intro }}</p>{% endif %}
+    </header>
+    <div class="card-grid">
+      {% for block in page.offerings %}{% include_block block %}{% endfor %}
+    </div>
+    {% if pricing_page %}<p class="center"><a class="btn btn-ghost" href="{% pageurl pricing_page %}">See packages &amp; pricing</a></p>{% endif %}
+  </div>
+</section>
+{% endif %}
+
+{# ---------- Philosophy + gallery ---------- #}
+{% if page.philosophy_body %}
+<section class="section philosophy" id="philosophy">
+  <div class="wrap narrow">
+    <p class="eyebrow">Philosophy</p>
+    <h2>{{ page.philosophy_heading }}</h2>
+    <div class="prose large">{{ page.philosophy_body|richtext }}</div>
+  </div>
+  {% with gallery=page.gallery_images.all %}
+  {% if gallery %}
+    <div class="gallery" tabindex="0" aria-label="Photos">
+      {% for item in gallery %}
+        <figure>
+          {% image item.image height-520 format-webp loading="lazy" %}
+          {% if item.caption %}<figcaption>{{ item.caption }}</figcaption>{% endif %}
+        </figure>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% endwith %}
+</section>
+{% endif %}
+
+{# ---------- Steps ---------- #}
+{% if page.steps %}
+<section class="section steps tinted-deep">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow">Getting started</p>
+      <h2>{{ page.steps_heading }}</h2>
+    </header>
+    <ol class="step-list">
+      {% for step in page.steps %}
+        <li><span class="step-num">{{ forloop.counter }}</span><h3>{{ step.value.title }}</h3><p>{{ step.value.text }}</p></li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+{% endif %}
+
+{# ---------- Testimonials ---------- #}
+{% if testimonials %}
+<section class="section testimonials" id="testimonials">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow">From families</p>
+      <h2>{{ page.testimonials_heading }}</h2>
+    </header>
+    <div class="testimonial-grid">
+      {% for t in testimonials %}{% include "includes/testimonial_card.html" with t=t clamp=True %}{% endfor %}
+    </div>
+    {% if testimonials_page %}<p class="center"><a class="btn btn-ghost" href="{% pageurl testimonials_page %}">Read all stories</a></p>{% endif %}
+  </div>
+</section>
+{% endif %}
+
+{# ---------- Blog ---------- #}
+{% if posts %}
+<section class="section journal tinted">
+  <div class="wrap">
+    <header class="section-head row">
+      <div><p class="eyebrow">Journal</p><h2>{{ page.blog_heading }}</h2></div>
+      <a class="link-arrow" href="{% pageurl posts.0.get_parent %}">All posts</a>
+    </header>
+    <div class="post-grid">
+      {% for post in posts %}{% include "includes/post_card.html" with post=post %}{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# ---------- Contact band ---------- #}
+<section class="section cta" id="contact">
+  <div class="wrap cta-inner">
+    <h2>{{ page.contact_heading }}</h2>
+    {% if page.contact_text %}<p class="lede">{{ page.contact_text }}</p>{% endif %}
+    <div class="hero-actions center">
+      <a class="btn btn-light" href="{% if sd.booking_url %}{{ sd.booking_url }}{% elif contact_page %}{% pageurl contact_page %}{% endif %}">Book a free consult</a>
+    </div>
+  </div>
+</section>
+
+{% endwith %}
+{% endblock %}
