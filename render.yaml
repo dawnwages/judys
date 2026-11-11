@@ -38,6 +38,10 @@ services:
         value: judysdaughter.support,www.judysdaughter.support
       - key: WAGTAILADMIN_BASE_URL
         value: https://judysdaughter.support
+      # Contact form messages are handed to Netlify Forms on the old Netlify
+      # site, which emails them out like before (contact/netlify.py).
+      - key: NETLIFY_FORMS_URL
+        value: https://judysdaughter.netlify.app/
       # Where contact-form messages go (kept out of this public repo).
       - key: CONTACT_EMAIL
         sync: false

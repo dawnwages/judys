@@ -1,0 +1,7 @@
+# Netlify now only hosts the contact form definition (Netlify Forms), not the
+# website. Publish just the netlify-forms folder; there's nothing to build,
+# and keeping the base folder there stops Netlify installing the Python site.
+[build]
+  base = "netlify-forms"
+  publish = "."
+  command = "echo 'Netlify Forms definition only'"

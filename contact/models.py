@@ -55,6 +55,15 @@ class ContactPage(AbstractEmailForm):
         context["google_maps_key"] = getattr(settings, "GOOGLE_MAPS_BROWSER_KEY", "")
         return context
 
+    def process_form_submission(self, form):
+        """Save the message in the admin, then hand it to Netlify Forms,
+        which emails it out just like the old site did."""
+        from .netlify import send_to_netlify
+
+        submission = super().process_form_submission(form)
+        send_to_netlify(form.cleaned_data)
+        return submission
+
     def send_mail(self, form):
         """Email the message to Lyndsay, with Reply going straight to the sender."""
         from django.core.mail import EmailMessage

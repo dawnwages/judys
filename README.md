@@ -104,6 +104,25 @@ to user accounts.
   the seed after editing `seed_site.py`: `uv run python manage.py seed_site --update-pricing`
   (this overwrites any pricing edits made in the admin).
 
+## Contact form and Netlify Forms
+
+The contact form still runs through **Netlify Forms**, as on the old site:
+Netlify stores every message and emails it using the notification settings in
+the Netlify dashboard (old site → **Forms → Form notifications**).
+
+How it works: the website saves each message (a backup copy under **Forms** in
+this admin), then sends the same fields to the old Netlify site at
+`NETLIFY_FORMS_URL` (https://judysdaughter.netlify.app/). That Netlify site now
+only publishes `netlify-forms/index.html`, which redirects visitors to
+judysdaughter.support and holds the `contact` form definition (`netlify.toml`
+sets this up).
+
+**If you add, remove or rename a contact form field in the admin**, update the
+field list in `netlify-forms/index.html` too and republish the Netlify site.
+Netlify ignores fields it doesn't know about.
+
+The testimonial share form (/share-your-story/) doesn't use Netlify.
+
 ## Deploying
 
 The live site (judysdaughter.support) is served by Netlify, which can't run Django.

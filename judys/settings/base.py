@@ -124,3 +124,8 @@ GOOGLE_MAPS_BROWSER_KEY = os.environ.get("GOOGLE_MAPS_BROWSER_KEY", "")
 GOOGLE_PLACES_SERVER_KEY = os.environ.get("GOOGLE_PLACES_SERVER_KEY", "")
 
 STAGING = False
+
+# Contact form messages are also sent to Netlify Forms (the old site's form),
+# which emails them out. Blank switches this off. See contact/netlify.py.
+NETLIFY_FORMS_URL = os.environ.get("NETLIFY_FORMS_URL", "")
+NETLIFY_FORM_NAME = os.environ.get("NETLIFY_FORM_NAME", "contact")
